@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+    background-color: rgb(51, 58, 110);
+    text-align: center;
+}
+
+p {
+    font-family: "Ubuntu Mono", monospace;
+    color:rgb(218, 140, 44);
+}
+
+h1 {
+    font-family: "Space Mono", monospace;
+    color: darkorange;
+}
+
+.game-name {
+    font-family: "Ubuntu Mono", monospace;
+    color:white;
+}
+
+input {
+    font-family: "Space Mono", monospace;
+    color: white;
+    background-color: hsla(33, 100%, 50%, 0.5);
+    border-color: darkorange;
+    border-radius: 10px;
+    border-width: 3px;
+    height: 30px;
+    width: 300px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    border-style:solid;
+}
+
+input::placeholder {
+    color: darkorange
+}
+
+input:focus {
+    /* Removes the default glow/outline when the input is clicked */
+    outline: none;
+    box-shadow: none;
+}
+
+/*#container {
+    display: inline-grid;
+    grid-column: 1fr 1fr 1fr;
+    gap: 40px;
+}
+
+#container div{
+    align-content: left;
+}*/
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding: 10px;
+    align-items: center;
+}
+.container div {
+  padding: 10px;
+
+}
+
+.download {
+    font-family: "Space Mono", monospace;
+    color: white;
+    background-color: hsla(0, 100%, 50%, 0.5);
+    border-color: rgb(255, 0, 0);
+    border-radius: 10px;
+    border-width: 3px;
+    height: 30px;
+    width: 100px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    border-style:solid;
+}
+
+.play {
+    font-family: "Space Mono", monospace;
+    color: white;
+    background-color: hsla(100, 100%, 50%, 0.5);
+    border-color: rgb(0, 255, 0);
+    border-radius: 10px;
+    border-width: 3px;
+    height: 30px;
+    width: 100px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    border-style:solid;
+}
+
+#game-buttons {
+    display: grids;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: relative;
+    cursor: pointer;
+}
+
+hr {
+    border-color: darkorange;
+    border-width: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    border-style:solid;
+}
