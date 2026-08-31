@@ -4,6 +4,10 @@
 body {
     background-color: rgb(51, 58, 110);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 p {
@@ -21,27 +25,29 @@ h1 {
     color:white;
 }
 
-input {
+.search-input {
     font-family: "Space Mono", monospace;
     color: white;
-    background-color: hsla(33, 100%, 50%, 0.5);
-    border-color: darkorange;
+    background-color: hsla(33, 100%, 50%, 0);
+    border-color: rgba(255, 140, 0, 0);
     border-radius: 10px;
     border-width: 3px;
-    height: 30px;
-    width: 300px;
+    height: 20px;
+    width: 270px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     box-shadow: none;
     border-style:solid;
+    align-self: center;
+    padding: 2px 0px 0px 40px;
 }
 
-input::placeholder {
+.search-input::placeholder {
     color: darkorange
 }
 
-input:focus {
+.search-input:focus {
     /* Removes the default glow/outline when the input is clicked */
     outline: none;
     box-shadow: none;
@@ -58,10 +64,10 @@ input:focus {
 }*/
 
 .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    padding: 10px;
-    align-items: center;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .container div {
   padding: 10px;
@@ -115,4 +121,31 @@ hr {
     appearance: none;
     box-shadow: none;
     border-style:solid;
+}
+
+.input-wrapper {
+    font-family: "Space Mono", monospace;
+    color: white;
+    background-color: hsla(33, 100%, 50%, 0.5);
+    border-color: rgba(255, 140, 0, 1);
+    border-radius: 10px;
+    border-width: 3px;
+    height: 30px;
+    width: 300px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    border-style:solid;
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 20px;
+    height: 20px;
 }
