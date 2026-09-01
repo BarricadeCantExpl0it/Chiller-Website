@@ -8,11 +8,200 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0;
+    min-height: 100vh;
+    position: relative;
+}
+
+#settings-toggle {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+#settings-toggle img {
+    display: block;
+    width: 32px;
+    height: 32px;
+}
+
+#settings-frame {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(14, 17, 44, 0.7);
+    z-index: 1000;
+    padding: 20px;
+}
+
+#settings-frame[hidden] {
+    display: none;
+}
+
+.settings-window {
+    width: min(520px, calc(100vw - 40px));
+    background: rgba(19, 21, 53, 0.96);
+    border: 4px solid #ff8c00;
+    border-radius: 12px;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+    font-family: "Space Mono", monospace;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+}
+
+.settings-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 18px 8px;
+    border-bottom: 3px solid #ff8c00;
+}
+
+.settings-title {
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 700;
+}
+
+.settings-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.28);
+    padding: 18px;
+    text-align: center;
+}
+
+.cloak-settings {
+    width: min(300px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+    color: white;
+    font-size: 1rem;
+}
+
+.setting-label {
+    color: white;
+    font-family: "Space Mono", monospace;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 28px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.18);
+    border: 2px solid #ff8c00;
+    border-radius: 999px;
+    transition: 0.2s ease;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.2s ease;
+}
+
+.toggle-switch input:checked + .slider {
+    background-color: rgba(255, 140, 0, 0.35);
+}
+
+.toggle-switch input:checked + .slider::before {
+    transform: translateX(20px);
+}
+
+.cloak-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.field-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: white;
+    font-family: "Space Mono", monospace;
+    font-size: 0.9rem;
+}
+
+.field-row input {
+    flex: 1;
+    min-width: 0;
+    background: rgba(255, 255, 255, 0.06);
+    border: 2px solid #ff8c00;
+    border-radius: 6px;
+    padding: 6px 8px;
+    color: white;
+    font-family: "Space Mono", monospace;
+}
+
+.field-row input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.2);
+}
+
+.settings-footer {
+    display: flex;
+    justify-content: center;
+    padding: 18px;
+    border-top: 3px solid #ff8c00;
+}
+
+#settings-close {
+    background: rgba(255, 140, 0, 0.08);
+    border: 3px solid #ff8c00;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: "Space Mono", monospace;
+    font-size: 0.95rem;
 }
 
 p {
     font-family: "Ubuntu Mono", monospace;
-    color:rgb(218, 140, 44);
+    color:#da8c2c;
 }
 
 h1 {
@@ -33,7 +222,7 @@ h1 {
     border-radius: 10px;
     border-width: 3px;
     height: 20px;
-    width: 270px;
+    width: 240px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -48,7 +237,6 @@ h1 {
 }
 
 .search-input:focus {
-    /* Removes the default glow/outline when the input is clicked */
     outline: none;
     box-shadow: none;
 }
@@ -68,10 +256,39 @@ h1 {
     align-content: center;
     justify-content: center;
     flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
 }
-.container div {
-  padding: 10px;
 
+.game-card {
+    background-color: hsla(33, 100%, 50%, 0.25);
+    border-color: rgba(255, 140, 0, 1);
+    border-radius: 10px;
+    border-width: 3px;
+    border-style: solid;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.game-card img {
+    border: 3px solid rgba(255, 140, 0, 1);
+    box-sizing: border-box;
+}
+
+.game-card .game-name {
+    margin: 0;
+    color: darkorange;
+}
+
+.game-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
 }
 
 .download {
@@ -148,4 +365,56 @@ hr {
     pointer-events: none;
     width: 20px;
     height: 20px;
+}
+
+.catagories {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.bar {
+    background-color: hsla(33, 100%, 50%, 0.5);
+    border-color: rgba(255, 140, 0, 1);
+    border-radius: 20px;
+    border-width: 3px;
+    min-height: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 12px;
+    font-family: "Space Mono", monospace;
+    color: white;
+    font-weight: normal;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    border-style:solid;
+}
+
+.bar.active {
+    background-color: hsla(33, 100%, 60%, 0.8);
+    border-color: rgba(255, 180, 0, 1);
+}
+
+.games-heading {
+    font-family: "Space Mono", monospace;
+    color: white;
+    margin: 0 0 10px;
+}
+
+.game-name {
+    margin: 10px 0 5px;
+    font-size: 1.05rem;
+    font-family: "Ubuntu Mono", monospace;
+    color: darkorange;
+    
 }

@@ -1,2 +1,2 @@
 # Chillest Website!
-Now without AI! (i think)
+horray it works i guess
