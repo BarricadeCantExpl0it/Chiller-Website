@@ -6,7 +6,6 @@
         <script src="js/load-games.js" defer></script>
         <script src="js/splashes.js" defer></script>
         <link rel="stylesheet" href="style.css">
-        <link id="site-favicon" rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/calebegudude/chillest-website-games/assets/images/search.png">
     </head>
     <body>
         <h1>Chillest Website</h1>
@@ -18,74 +17,5 @@
         <br>
         <div id="catagories" class="catagories"></div>
         <div class="container" id="container"></div>
-
-        <script>
-            const settingsToggle = document.getElementById('settings-toggle');
-            const settingsFrame = document.getElementById('settings-frame');
-            const settingsClose = document.getElementById('settings-close');
-            const c10akToggle = document.getElementById('c10ak-setting');
-            const c10akName = document.getElementById('c10ak-name');
-            const c10akIcon = document.getElementById('c10ak-icon');
-            const faviconLink = document.getElementById('site-favicon');
-            const originalTitle = document.title;
-            const originalFavicon = faviconLink.href;
-
-            function normalizeIconUrl(rawUrl) {
-                if (!rawUrl) {
-                    return originalFavicon;
-                }
-
-                let value = rawUrl.trim();
-                if (!/^https?:\/\//i.test(value)) {
-                    value = 'https://' + value;
-                }
-
-                try {
-                    const url = new URL(value);
-                    return 'https://www.google.com/s2/favicons?sz=64&domain_url=' + encodeURIComponent(url.origin);
-                } catch (error) {
-                    return originalFavicon;
-                }
-            }
-
-            function applyc10ak() {
-                const enabled = c10akToggle.checked;
-                const nameValue = c10akName.value.trim() || 'c10ak';
-
-                if (enabled) {
-                    document.title = nameValue;
-                    faviconLink.href = normalizeIconUrl(c10akIcon.value);
-                    return;
-                }
-
-                document.title = originalTitle;
-                faviconLink.href = originalFavicon;
-            }
-
-            function setSettingsOpen(isOpen) {
-                settingsFrame.hidden = !isOpen;
-            }
-
-            settingsToggle.addEventListener('click', () => {
-                setSettingsOpen(settingsFrame.hidden);
-            });
-
-            settingsClose.addEventListener('click', () => {
-                setSettingsOpen(false);
-            });
-
-            [c10akToggle, c10akName, c10akIcon].forEach((element) => {
-                element.addEventListener('input', applyc10ak);
-                element.addEventListener('change', applyc10ak);
-            });
-
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && !settingsFrame.hidden) {
-                    setSettingsOpen(false);
-                }
-            });
-
-            applyc10ak();
-        </script>
     </body>
 </html>
