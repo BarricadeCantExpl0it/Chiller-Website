@@ -1,2 +1,2 @@
 # Chillest Website!
-horray it works i guess
+v1 release
