@@ -3,7 +3,7 @@ const REPO_NAME = 'Chillest-Website-Games';
 const BRANCH = 'main';
 
 const CDN_BASE = `https://cdn.jsdelivr.net/gh/${REPO_OWNER}/${REPO_NAME}@${BRANCH}`;
-const API_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${BRANCH}?recursive=1`;
+const GAMES_MANIFEST_URL = `${CDN_BASE}/games/games.json`;
 
 const state = {
   games: [],
@@ -11,12 +11,6 @@ const state = {
   searchTerm: '',
   hiddenCategories: new Set(["DEBUG"])
 };
-
-function getGameName(filePath) {
-  const fileName = filePath.split('/').pop();
-  const nameWithoutExt = fileName.substring(0, fileName.lastIndexOf('.')) || fileName;
-  return nameWithoutExt.replace(/[-_]+/g, ' ').trim();
-}
 
 function getGameCategory(filePath) {
   const parts = filePath.split('/');
@@ -105,7 +99,7 @@ function renderGames() {
   container.innerHTML = '';
 
   filteredGames.forEach(game => {
-    const matchingIcon = game.icon; 
+    const matchingIcon = game.icon;
     const fallbackUrl = `https://via.placeholder.com/200?text=${encodeURIComponent(game.name)}`;
     const rawIconUrl = matchingIcon ? `${CDN_BASE}/${matchingIcon}` : fallbackUrl;
 
@@ -147,40 +141,30 @@ async function loadGames() {
   }
 
   try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error(`GitHub API error (${response.status})`);
+    const response = await fetch(GAMES_MANIFEST_URL, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`Unable to load game list (${response.status})`);
 
     const data = await response.json();
 
-    const htmlFiles = data.tree.filter(item =>
-      item.path.toLowerCase().startsWith('games/html/') && item.path.endsWith('.html')
-    );
-
-    const iconFiles = data.tree.filter(item =>
-      item.path.toLowerCase().startsWith('games/icons/') && !item.path.endsWith('/')
-    );
-
-    if (htmlFiles.length === 0) {
-      container.innerHTML = '<p>No games found in games/html/</p>';
+    if (!Array.isArray(data) || data.length === 0) {
+      container.innerHTML = '<p>No games found in games/games.json</p>';
       return;
     }
 
-    state.games = htmlFiles.map(file => {
-      const fileName = file.path.split('/').pop();
-      const gameName = getGameName(file.path);
-      const category = getGameCategory(file.path);
-      const matchingIcon = iconFiles.find(icon => {
-        const iconFileName = icon.path.split('/').pop();
-        const iconNameNoExt = iconFileName.substring(0, iconFileName.lastIndexOf('.')) || iconFileName;
-        return iconNameNoExt.toLowerCase() === gameName.toLowerCase().replace(/\s+/g, '-');
-      });
+    state.games = data.filter(item => {
+      return item && typeof item.name === 'string' && item.name.trim() && typeof item.html === 'string' && item.html.trim();
+    }).map(item => {
+      const filePath = item.html;
+      const fileName = filePath ? filePath.split('/').pop() : null;
+      const category = filePath ? getGameCategory(filePath) : 'Uncategorized';
+      const iconPath = typeof item.icon === 'string' ? item.icon.replace(/^\/+/, '') : null;
 
       return {
-        name: gameName,
+        name: item.name.trim(),
         category,
         fileName,
-        url: `${CDN_BASE}/${file.path}`,
-        icon: matchingIcon ? matchingIcon.path : null
+        url: filePath ? `${CDN_BASE}/${filePath}` : null,
+        icon: iconPath
       };
     });
 
