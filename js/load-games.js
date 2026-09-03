@@ -1,24 +1,6 @@
 const REPO_OWNER = 'CalebEGUDUDE';
 const REPO_NAME = 'Chillest-Website-Games';
-const FALLBACK_REF = '872f0f84f8f809ccf0af5decd28e391e20a1dba4';
-
-let CDN_BASE = `https://cdn.jsdelivr.net/gh/${REPO_OWNER}/${REPO_NAME}@${FALLBACK_REF}`;
-
-async function useLatestRelease() {
-  const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases/latest`, {
-    headers: { Accept: 'application/vnd.github+json' },
-    cache: 'no-store'
-  });
-
-  if (!response.ok) throw new Error(`Unable to resolve latest release (${response.status})`);
-
-  const release = await response.json();
-  if (typeof release.tag_name !== 'string' || !release.tag_name.trim()) {
-    throw new Error('Latest release did not include a tag');
-  }
-
-  CDN_BASE = `https://cdn.jsdelivr.net/gh/${REPO_OWNER}/${REPO_NAME}@${encodeURIComponent(release.tag_name)}`;
-}
+const CDN_BASE = `https://cdn.jsdelivr.net/gh/${REPO_OWNER}/${REPO_NAME}@main`;
 
 const state = {
   games: [],
@@ -156,12 +138,6 @@ async function loadGames() {
   }
 
   try {
-    try {
-      await useLatestRelease();
-    } catch (error) {
-      console.warn('Using the games repository fallback ref:', error.message);
-    }
-
     const response = await fetch(`${CDN_BASE}/games/games.json`, { cache: 'no-store' });
     if (!response.ok) throw new Error(`Unable to load game list (${response.status})`);
 
