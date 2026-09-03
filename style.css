@@ -17,7 +17,7 @@ p {
 
 h1 {
     font-family: "Space Mono", monospace;
-    color: darkorange;
+    color: darkred;
 }
 
 .game-name {
@@ -29,7 +29,7 @@ h1 {
     font-family: "Space Mono", monospace;
     color: white;
     background-color: hsla(33, 100%, 50%, 0);
-    border-color: rgba(255, 140, 0, 0);
+    border-color: darkred;
     border-radius: 10px;
     border-width: 3px;
     height: 20px;
