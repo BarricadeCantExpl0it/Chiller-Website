@@ -1,5 +1,5 @@
-const REPO_OWNER = 'CalebEGUDUDE';
-const REPO_NAME = 'Chillest-Website-Games';
+const REPO_OWNER = 'BarricadeCantExpl0it';
+const REPO_NAME = 'Chiller-Website-Games';
 const CDN_BASE = `https://cdn.jsdelivr.net/gh/${REPO_OWNER}/${REPO_NAME}@main`;
 
 const state = {
