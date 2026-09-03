@@ -1,4 +1,4 @@
-const SPLASHES_URL = 'https://raw.githubusercontent.com/CalebEGUDUDE/Chillest-Website-Games/main/assets/text/splashes.json';
+const SPLASHES_URL = 'https://raw.githubusercontent.com/BarricadeCantExpl0it/Chiller-Website-Games/main/assets/text/splashes.json';
 
 function getSplashPool(payload) {
   if (Array.isArray(payload)) return payload.filter(item => typeof item === 'string');
